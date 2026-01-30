@@ -18,7 +18,7 @@ jobs:
           python-version: '3.9'
 
       - name: Install dependencies
-        run: pip install pandas requests lxml xldr
+        run: pip install pandas requests lxml xlrd
 
       - name: Run script
         run: python update_feriados_anbima.py
