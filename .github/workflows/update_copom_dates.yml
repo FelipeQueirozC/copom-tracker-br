@@ -2,8 +2,12 @@ name: Update Copom
 
 on:
   schedule:
-    - cron: '0 0 * * 1' # Roda toda segunda-feira à meia-noite
+    - cron: '0 0 1 * *' # Roda às 00:00 do dia 1 de cada mês
   workflow_dispatch:   # Permite rodar manualmente clicando no botão no GitHub
+
+# Adicione este bloco aqui:
+permissions:
+  contents: write
 
 jobs:
   build:
