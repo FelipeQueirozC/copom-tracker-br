@@ -1,0 +1,32 @@
+name: Update ANBIMA Holidays
+
+on:
+  schedule:
+    - cron: '0 0 1 * *' # Roda às 00:00 do dia 1 de cada mês
+  workflow_dispatch:   # Permite rodar manualmente
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      - name: Install dependencies
+        run: pip install pandas requests lxml
+
+      - name: Run script
+        run: python update_feriados_anbima.py
+
+      - name: Commit and Push
+        run: |
+          git config --global user.name 'Holiday Bot'
+          git config --global user.email 'bot@noreply.github.com'
+          git add feriados_anbima.json
+          git commit -m "Update holidays [skip ci]" || exit 0
+          git push
